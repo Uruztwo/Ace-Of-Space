@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cnoxgttipqsai"
+path="res://.godot/imported/02 - Lufus - Emergency Meeting.mp3-743784b2d5c7cc1ba14b632eb7fe802e.mp3str"
+
+[deps]
+
+source_file="res://Assets/02 - Lufus - Emergency Meeting.mp3"
+dest_files=["res://.godot/imported/02 - Lufus - Emergency Meeting.mp3-743784b2d5c7cc1ba14b632eb7fe802e.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

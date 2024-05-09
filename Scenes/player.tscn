@@ -1,0 +1,134 @@
+[gd_scene load_steps=17 format=3 uid="uid://pvcswsnc37mv"]
+
+[ext_resource type="Texture2D" uid="uid://bfii8ebuwtp3s" path="res://Assets/kenney_space-shooter-redux/PNG/playerShip1_green.png" id="1_igil7"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_m70i6"]
+[ext_resource type="PackedScene" uid="uid://deh283ia3d6rr" path="res://Scenes/laser.tscn" id="2_80ctr"]
+[ext_resource type="PackedScene" uid="uid://8otbbbqanwgs" path="res://Scenes/cannon.tscn" id="2_drjde"]
+[ext_resource type="AudioStream" uid="uid://bdfvpiwuhqx1g" path="res://Assets/kenney_space-shooter-redux/Bonus/sfx_laser2.ogg" id="5_44lq6"]
+[ext_resource type="AudioStream" uid="uid://cu871muubums1" path="res://Assets/kenney_space-shooter-redux/Bonus/sfx_laser1.ogg" id="6_xs8ry"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jc0b4"]
+radius = 33.3333
+height = 96.0
+
+[sub_resource type="Gradient" id="Gradient_0hlmm"]
+colors = PackedColorArray(1, 1, 1, 0, 0, 0, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_i84fc"]
+gradient = SubResource("Gradient_0hlmm")
+
+[sub_resource type="Curve" id="Curve_6yh7r"]
+_data = [Vector2(0, 0.901379), 0.0, 0.0, 0, 0, Vector2(0.993174, 0.255862), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3xsjb"]
+curve = SubResource("Curve_6yh7r")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_51b6v"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+gravity = Vector3(-50, 0, 0)
+scale_min = 9.0
+scale_max = 15.0
+scale_curve = SubResource("CurveTexture_3xsjb")
+color_ramp = SubResource("GradientTexture1D_i84fc")
+
+[sub_resource type="Animation" id="Animation_fbog6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6vwvn"]
+resource_name = "on_shot"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p4jk8"]
+_data = {
+"RESET": SubResource("Animation_fbog6"),
+"on_shot": SubResource("Animation_6vwvn")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0a2vo"]
+
+[node name="Player" type="CharacterBody2D"]
+scale = Vector2(0.75, 0.75)
+script = ExtResource("1_m70i6")
+Cannon = ExtResource("2_drjde")
+Red_Lasers_Scene = ExtResource("2_80ctr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = 1.5708
+texture = ExtResource("1_igil7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(6.66667, -1.33333)
+rotation = 3.14159
+shape = SubResource("CapsuleShape2D_jc0b4")
+
+[node name="LeftMuzzle" type="Marker2D" parent="."]
+position = Vector2(40, -25)
+
+[node name="RightMuzzle" type="Marker2D" parent="."]
+position = Vector2(40, 25)
+
+[node name="CannonMuzzle" type="Marker2D" parent="."]
+position = Vector2(46, 0)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-40, 13)
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_51b6v")
+lifetime = 1.2
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+position = Vector2(-40, -13)
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_51b6v")
+lifetime = 1.2
+
+[node name="LaserContainer" type="Node" parent="."]
+
+[node name="CannonContainer" type="Node" parent="."]
+
+[node name="Lasers" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_44lq6")
+volume_db = -20.0
+
+[node name="Cannon" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_xs8ry")
+pitch_scale = 0.4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_p4jk8")
+}
+
+[node name="PickupArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+scale = Vector2(10, 10)
+shape = SubResource("CircleShape2D_0a2vo")

@@ -1,0 +1,84 @@
+[gd_scene load_steps=9 format=3 uid="uid://nodqoh7gp630"]
+
+[ext_resource type="Script" path="res://Scripts/hud.gd" id="1_gy2sb"]
+[ext_resource type="FontFile" uid="uid://dloaawq2psyo0" path="res://Assets/kenney_space-shooter-redux/Bonus/kenvector_future_thin.ttf" id="1_owg16"]
+[ext_resource type="FontFile" uid="uid://7hb1t3jij0ap" path="res://Assets/kenney_space-shooter-redux/Bonus/kenvector_future.ttf" id="2_o8w13"]
+[ext_resource type="Texture2D" uid="uid://dk8jd8e4gl2h2" path="res://Assets/kenney_space-shooter-redux/PNG/UI/playerLife1_green.png" id="3_fed0f"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3kqnu"]
+font = ExtResource("1_owg16")
+font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_v7piu"]
+font = ExtResource("1_owg16")
+font_size = 56
+
+[sub_resource type="LabelSettings" id="LabelSettings_e0gtu"]
+font = ExtResource("2_o8w13")
+font_size = 40
+font_color = Color(1, 0.498039, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_tr7x1"]
+font = ExtResource("2_o8w13")
+font_size = 40
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gy2sb")
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 1.0
+offset_right = 388.0
+offset_bottom = 66.0
+text = "SCORE: 9999"
+label_settings = SubResource("LabelSettings_3kqnu")
+
+[node name="Lives" type="Label" parent="."]
+layout_mode = 0
+offset_left = 156.0
+offset_top = 74.0
+offset_right = 196.0
+offset_bottom = 137.0
+text = "3"
+label_settings = SubResource("LabelSettings_v7piu")
+
+[node name="BigX" type="Label" parent="."]
+layout_mode = 0
+offset_left = 116.0
+offset_top = 82.0
+offset_right = 156.0
+offset_bottom = 137.0
+text = "X"
+label_settings = SubResource("LabelSettings_e0gtu")
+
+[node name="Life" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 77.0
+offset_right = 101.0
+offset_bottom = 129.0
+texture = ExtResource("3_fed0f")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 486.0
+offset_top = 6.0
+offset_right = 616.0
+offset_bottom = 51.0
+
+[node name="TimeLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "14:00"
+label_settings = SubResource("LabelSettings_tr7x1")
+
+[node name="Gametimer" type="Timer" parent="MarginContainer"]
+wait_time = 240.0
+autostart = true
