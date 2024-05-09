@@ -13,7 +13,7 @@ signal took_damage
 @onready var cannon_container = $CannonContainer
 @onready var lasers = $Lasers
 @onready var cannon = $Cannon
-
+@onready var destroyed = $Destroyed
 
 func _physics_process(_delta):
 	
@@ -28,8 +28,9 @@ func _physics_process(_delta):
 	velocity = direction * speed
 	move_and_slide()
 	
-	global_position = global_position.clamp(Vector2(0,0), screen_size)	
-	
+	#global_position = global_position.clamp(Vector2(0,0), screen_size)	
+	global_position.x = clamp(global_position.x, 75, screen_size.x)
+	global_position.y = clamp(global_position.y, 0, screen_size.y)
 func get_movement_vector():
 	
 	var x_movement = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
@@ -49,6 +50,8 @@ func take_damage():
 	emit_signal("took_damage")
 
 func die():
+	#destroyed.play()
+	#await get_tree().create_timer(0.4).timeout
 	queue_free()
 	
 func fire_cannon():

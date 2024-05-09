@@ -4,9 +4,11 @@ extends CharacterBody2D
 @export var HP = 2
 @export var modulated_colour = Color.WHITE
 @export var original_speed = 220
-#@export var drop_item : PackedScene
 var dropped_item = preload("res://Scenes/blue_experience.tscn")
 var speed
+@onready var audio_player_2d = $AudioStreamPlayer2D
+
+
 
 signal died 
 
@@ -18,7 +20,7 @@ func _physics_process(delta):
 func _on_area_2d_area_entered(_area):
 	take_damage()	
 	if HP == 0:
-		print("Character HP is 0, dropping item.")
+		#print("Character HP is 0, dropping item.")
 		sprite.visible = false
 		animated_sprite_2d.visible = true
 		animated_sprite_2d.play()
@@ -27,6 +29,7 @@ func _on_area_2d_area_entered(_area):
 	
 func die():
 	emit_signal("died")
+	
 	item_drop()
 	queue_free()
 
@@ -37,6 +40,7 @@ func _on_area_2d_body_entered(body):
 
 func take_damage():	
 	HP -= 1
+	audio_player_2d.play()
 	sprite.modulate = Color.RED
 	speed = 0
 	await get_tree().create_timer(0.1).timeout
@@ -52,7 +56,4 @@ func do_item_drop():
 	var new_drop = dropped_item.instantiate()
 	get_tree().get_root().add_child(new_drop)
 	new_drop.position = global_position
-	if new_drop:
-		print("Item instantiated successfully.")
-	else:
-		print("Failed to instantiate item.")
+	

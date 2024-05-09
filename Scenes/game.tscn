@@ -1,19 +1,16 @@
 [gd_scene load_steps=9 format=3 uid="uid://dfchnp4f006op"]
 
 [ext_resource type="Script" path="res://Scripts/game.gd" id="1_jmjfa"]
-[ext_resource type="Script" path="res://Scripts/GameStateManager.gd" id="2_7m3yt"]
 [ext_resource type="PackedScene" uid="uid://nodqoh7gp630" path="res://Scenes/hud.tscn" id="2_a6wxw"]
 [ext_resource type="PackedScene" uid="uid://pvcswsnc37mv" path="res://Scenes/player.tscn" id="2_um3x6"]
 [ext_resource type="PackedScene" uid="uid://dh1ymd5yevviv" path="res://Scenes/space_bg.tscn" id="3_0xrg5"]
 [ext_resource type="PackedScene" uid="uid://c4fde447c0r7s" path="res://Scenes/enemy_spawner.tscn" id="3_hbv38"]
-[ext_resource type="AudioStream" uid="uid://cnoxgttipqsai" path="res://Assets/02 - Lufus - Emergency Meeting.mp3" id="6_dfgmv"]
+[ext_resource type="AudioStream" uid="uid://cnoxgttipqsai" path="res://Assets/Audio/02 - Lufus - Emergency Meeting.mp3" id="6_dfgmv"]
 [ext_resource type="PackedScene" uid="uid://mxgq8r2iyrla" path="res://Scenes/meteor_spawner.tscn" id="8_o4ufn"]
+[ext_resource type="PackedScene" uid="uid://cohetkva38shn" path="res://Scenes/base_border.tscn" id="8_u7nnc"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_jmjfa")
-
-[node name="GameStateManager" type="Node" parent="."]
-script = ExtResource("2_7m3yt")
 
 [node name="SpaceBG" parent="." instance=ExtResource("3_0xrg5")]
 
@@ -33,5 +30,11 @@ autoplay = true
 
 [node name="MeteorSpawner" parent="." instance=ExtResource("8_o4ufn")]
 
+[node name="BaseBorder" parent="." instance=ExtResource("8_u7nnc")]
+position = Vector2(12, 327)
+collision_layer = 31
+collision_mask = 31
+
 [connection signal="took_damage" from="Player" to="." method="_on_player_took_damage"]
 [connection signal="enemy_spawned" from="EnemySpawner" to="." method="_on_enemy_spawner_enemy_spawned"]
+[connection signal="area_entered" from="BaseBorder" to="." method="_on_base_border_area_entered"]

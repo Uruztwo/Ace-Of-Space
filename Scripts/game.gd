@@ -2,12 +2,13 @@ extends Node2D
 
 var score = 0
 var lives = 3
+var base_hp = 10
 @onready var enemy_spawner = $EnemySpawner
 @onready var player = $Player
 @onready var hud = $UI/HUD
 @onready var ui = $UI
+
 var gos = preload("res://Scenes/game_over_screen.tscn")
-@onready var game_state_manager = $GameStateManager
 var original_engine_time = Engine.time_scale
 var is_paused = false
 
@@ -23,7 +24,7 @@ func _process(_delta):
 func _ready():
 	hud.set_score_label(score)
 	hud.set_lives(lives)
-
+	hud.set_base_hp(base_hp)
 		
 func _on_player_took_damage():
 	lives -= 1
@@ -33,6 +34,7 @@ func _on_player_took_damage():
 		ui.add_child(new_gos)
 		player.die()
 		new_gos.set_score(score)
+		#Engine.time_scale = 0.01
 
 func _on_enemy_spawner_enemy_spawned(new_enemy):
 	
@@ -55,3 +57,16 @@ func slow_game():
 func fasten_game():
 	Engine.time_scale += 0.1
 		
+
+
+
+
+func _on_base_border_area_entered(_area):
+	if base_hp >= 0:	
+		hud.set_base_hp(base_hp)
+		base_hp -= 1	
+		print("Enemy has entered the base! ")
+	if base_hp == -1:
+		var new_gos = gos.instantiate()
+		ui.add_child(new_gos)
+		new_gos.set_score(score)

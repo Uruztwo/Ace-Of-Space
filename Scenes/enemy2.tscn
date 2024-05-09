@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://6j4hwu40b752"]
+[gd_scene load_steps=15 format=3 uid="uid://6j4hwu40b752"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_ar7le"]
 [ext_resource type="Texture2D" uid="uid://bywyhotc31uxh" path="res://Assets/kenney_space-shooter-redux/PNG/ufoYellow.png" id="2_t7idi"]
 [ext_resource type="Texture2D" uid="uid://cry71j6wati7u" path="res://Assets/explosion.png" id="3_4fbim"]
+[ext_resource type="AudioStream" uid="uid://dl1nw3umv7ios" path="res://Assets/Audio/hit.wav" id="4_jmtci"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_daiio"]
 radius = 44.9027
@@ -138,7 +139,7 @@ libraries = {
 autoplay = "movement"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(-62.6667, 0)
+position = Vector2(-97.3334, 0)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -146,6 +147,9 @@ scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_74yg8")
 frame = 3
 frame_progress = 0.498037
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_jmtci")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

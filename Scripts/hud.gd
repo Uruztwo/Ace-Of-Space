@@ -4,6 +4,11 @@ extends Control
 @onready var lives = $Lives
 @onready var gametimer = $MarginContainer/Gametimer
 @onready var time_label = $MarginContainer/TimeLabel
+@onready var base_hp = $BaseHP
+@onready var beginning = $Beginning
+
+func set_base_hp(amount):
+	base_hp.text = "BASE: " + str(amount)
 
 func set_score_label(new_score):
 	score.text = "SCORE: " + str(new_score)
@@ -26,3 +31,7 @@ func format_seconds_to_string(seconds: float):
 	
 	
 	
+
+
+func _on_timer_timeout():
+	beginning.visible = false
