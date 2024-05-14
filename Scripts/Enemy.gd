@@ -53,7 +53,9 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 func item_drop():
 	call_deferred("do_item_drop")	
 func do_item_drop():
-	var new_drop = dropped_item.instantiate()
-	get_tree().get_root().add_child(new_drop)
-	new_drop.position = global_position
+	var drop_chance = randf()
+	if drop_chance <= 0.5:
+		var new_drop = dropped_item.instantiate()
+		get_tree().get_root().add_child(new_drop)
+		new_drop.position = global_position
 	

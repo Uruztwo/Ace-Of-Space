@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dfchnp4f006op"]
+[gd_scene load_steps=10 format=3 uid="uid://dfchnp4f006op"]
 
 [ext_resource type="Script" path="res://Scripts/game.gd" id="1_jmjfa"]
 [ext_resource type="PackedScene" uid="uid://nodqoh7gp630" path="res://Scenes/hud.tscn" id="2_a6wxw"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://cnoxgttipqsai" path="res://Assets/Audio/02 - Lufus - Emergency Meeting.mp3" id="6_dfgmv"]
 [ext_resource type="PackedScene" uid="uid://mxgq8r2iyrla" path="res://Scenes/meteor_spawner.tscn" id="8_o4ufn"]
 [ext_resource type="PackedScene" uid="uid://cohetkva38shn" path="res://Scenes/base_border.tscn" id="8_u7nnc"]
+[ext_resource type="PackedScene" uid="uid://bqhkjpeu2ljjc" path="res://Scenes/experience_manager.tscn" id="9_6ylxv"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_jmjfa")
@@ -16,24 +17,28 @@ script = ExtResource("1_jmjfa")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="HUD" parent="UI" instance=ExtResource("2_a6wxw")]
+[node name="HUD" parent="UI" node_paths=PackedStringArray("experience_manager") instance=ExtResource("2_a6wxw")]
+experience_manager = NodePath("../../ExperienceManager")
 
 [node name="Player" parent="." instance=ExtResource("2_um3x6")]
 position = Vector2(150, 324)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_hbv38")]
 
+[node name="MeteorSpawner" parent="." instance=ExtResource("8_o4ufn")]
+process_mode = 4
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_dfgmv")
 volume_db = -20.0
 autoplay = true
 
-[node name="MeteorSpawner" parent="." instance=ExtResource("8_o4ufn")]
-
 [node name="BaseBorder" parent="." instance=ExtResource("8_u7nnc")]
 position = Vector2(12, 327)
 collision_layer = 31
 collision_mask = 31
+
+[node name="ExperienceManager" parent="." instance=ExtResource("9_6ylxv")]
 
 [connection signal="took_damage" from="Player" to="." method="_on_player_took_damage"]
 [connection signal="enemy_spawned" from="EnemySpawner" to="." method="_on_enemy_spawner_enemy_spawned"]

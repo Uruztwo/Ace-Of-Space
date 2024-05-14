@@ -14,6 +14,10 @@ signal took_damage
 @onready var lasers = $Lasers
 @onready var cannon = $Cannon
 @onready var destroyed = $Destroyed
+@onready var sprite = $Sprite2D
+
+@export var scale_amount = Vector2(1.2, 1.2)
+@export var scale_duration = 0.4
 
 func _physics_process(_delta):
 	
@@ -44,6 +48,7 @@ func fire_lasers():
 	laser_container.add_child(new_laser_right_muzzle)
 	new_laser_left_muzzle.global_position = left_muzzle.global_position
 	new_laser_right_muzzle.global_position = right_muzzle.global_position
+	shooting_anim()
 	lasers.play()
 
 func take_damage():
@@ -59,3 +64,9 @@ func fire_cannon():
 	cannon_container.add_child(new_cannon_muzzle)
 	new_cannon_muzzle.global_position = cannon_muzzle.global_position
 	cannon.play()
+
+func shooting_anim():
+	var tween = create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	tween.tween_property(sprite, "scale", scale_amount, scale_duration * 0.1).from_current()
+	tween.tween_property(sprite, "scale", Vector2.ONE, scale_duration * 0.9).from(scale_amount)
+	
