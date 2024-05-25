@@ -1,0 +1,92 @@
+[gd_scene load_steps=14 format=3 uid="uid://brkpjicqklf86"]
+
+[ext_resource type="Texture2D" uid="uid://u2osxuhhuwhm" path="res://Assets/SpaceShipParts/Example/16.png" id="1_6mqsw"]
+[ext_resource type="Script" path="res://Scripts/enemy_one.gd" id="1_nyfka"]
+[ext_resource type="Texture2D" uid="uid://b2aodao4t784o" path="res://Assets/explosion.png" id="3_24qni"]
+[ext_resource type="PackedScene" uid="uid://l6h063hvcsim" path="res://Scenes/Components/item_drop_component.tscn" id="4_d1h6a"]
+[ext_resource type="PackedScene" uid="uid://bxie0hafc4ffa" path="res://Scenes/Components/health_component.tscn" id="4_mw1sc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r5glm"]
+size = Vector2(60, 93.3333)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dbe1j"]
+radius = 20.0
+height = 93.3333
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whifu"]
+atlas = ExtResource("3_24qni")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jrkko"]
+atlas = ExtResource("3_24qni")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tn0r8"]
+atlas = ExtResource("3_24qni")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ihn0"]
+atlas = ExtResource("3_24qni")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b25tq"]
+atlas = ExtResource("3_24qni")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uj700"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whifu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jrkko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tn0r8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ihn0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b25tq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="EnemyOne" type="CharacterBody2D"]
+scale = Vector2(0.6, 0.6)
+script = ExtResource("1_nyfka")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -1.5708
+texture = ExtResource("1_6mqsw")
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(-60, 0)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="InteractionArea" type="CollisionShape2D" parent="Area2D"]
+modulate = Color(0, 0, 1, 1)
+position = Vector2(-20, 0)
+shape = SubResource("RectangleShape2D_r5glm")
+
+[node name="BodyCShape" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-23.3333, 0)
+shape = SubResource("CapsuleShape2D_dbe1j")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_uj700")
+
+[node name="ItemDropComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_d1h6a")]
+health_component = NodePath("../HealthComponent")
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_mw1sc")]
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

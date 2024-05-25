@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://d3ck1273cuv4p"]
+
+[ext_resource type="Texture2D" uid="uid://b1oc71ulmi4ep" path="res://Assets/Laser Sprites/01.png" id="1_aevxc"]
+[ext_resource type="Script" path="res://Scripts/blue_laser.gd" id="1_lohvx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_leu86"]
+
+[sub_resource type="Animation" id="Animation_itr7k"]
+resource_name = "just_shot"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2xc55"]
+_data = {
+"just_shot": SubResource("Animation_itr7k")
+}
+
+[node name="BlueLaser" type="Area2D"]
+script = ExtResource("1_lohvx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_aevxc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_leu86")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 4
+libraries = {
+"": SubResource("AnimationLibrary_2xc55")
+}
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

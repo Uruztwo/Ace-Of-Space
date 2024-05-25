@@ -1,45 +1,101 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfchnp4f006op"]
+[gd_scene load_steps=12 format=3 uid="uid://bb5c1877tgm6v"]
 
-[ext_resource type="Script" path="res://Scripts/game.gd" id="1_jmjfa"]
-[ext_resource type="PackedScene" uid="uid://nodqoh7gp630" path="res://Scenes/hud.tscn" id="2_a6wxw"]
-[ext_resource type="PackedScene" uid="uid://pvcswsnc37mv" path="res://Scenes/player.tscn" id="2_um3x6"]
-[ext_resource type="PackedScene" uid="uid://dh1ymd5yevviv" path="res://Scenes/space_bg.tscn" id="3_0xrg5"]
-[ext_resource type="PackedScene" uid="uid://c4fde447c0r7s" path="res://Scenes/enemy_spawner.tscn" id="3_hbv38"]
-[ext_resource type="AudioStream" uid="uid://cnoxgttipqsai" path="res://Assets/Audio/02 - Lufus - Emergency Meeting.mp3" id="6_dfgmv"]
-[ext_resource type="PackedScene" uid="uid://mxgq8r2iyrla" path="res://Scenes/meteor_spawner.tscn" id="8_o4ufn"]
-[ext_resource type="PackedScene" uid="uid://cohetkva38shn" path="res://Scenes/base_border.tscn" id="8_u7nnc"]
-[ext_resource type="PackedScene" uid="uid://bqhkjpeu2ljjc" path="res://Scenes/experience_manager.tscn" id="9_6ylxv"]
+[ext_resource type="Script" path="res://Scripts/ParallaxBackground.gd" id="1_6c078"]
+[ext_resource type="Script" path="res://Scripts/game.gd" id="1_cnq33"]
+[ext_resource type="Texture2D" uid="uid://vbp35iga3akj" path="res://Assets/Background/parallax-space-backgound.png" id="2_noc7e"]
+[ext_resource type="Texture2D" uid="uid://cyjv2xutkeq48" path="res://Assets/Background/parallax-space-stars.png" id="3_8lq4b"]
+[ext_resource type="Texture2D" uid="uid://c0ubjhi0cijir" path="res://Assets/Background/parallax-space-far-planets.png" id="4_wuqas"]
+[ext_resource type="Texture2D" uid="uid://dvgk4ojubb2b2" path="res://Assets/Background/parallax-space-ring-planet.png" id="5_4065t"]
+[ext_resource type="Texture2D" uid="uid://bs0fusnb3rhdl" path="res://Assets/Background/parallax-space-big-planet.png" id="6_qucxm"]
+[ext_resource type="PackedScene" uid="uid://clqwbqa74pkxy" path="res://Scenes/experience_manager.tscn" id="7_ydoy4"]
+[ext_resource type="PackedScene" uid="uid://bqqy4wivd6wgq" path="res://Scenes/upgrade_manager.tscn" id="8_bt12y"]
+[ext_resource type="PackedScene" uid="uid://ce30kjmfybl4w" path="res://Scenes/player.tscn" id="9_6mspg"]
+[ext_resource type="PackedScene" uid="uid://c6qln48vfi4px" path="res://Scenes/enemy_spawner.tscn" id="10_x68el"]
 
 [node name="Game" type="Node2D"]
-script = ExtResource("1_jmjfa")
-
-[node name="SpaceBG" parent="." instance=ExtResource("3_0xrg5")]
+script = ExtResource("1_cnq33")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="HUD" parent="UI" node_paths=PackedStringArray("experience_manager") instance=ExtResource("2_a6wxw")]
-experience_manager = NodePath("../../ExperienceManager")
+[node name="ParallaxBackground" type="ParallaxBackground" parent="UI"]
+script = ExtResource("1_6c078")
 
-[node name="Player" parent="." instance=ExtResource("2_um3x6")]
-position = Vector2(150, 324)
+[node name="Sprite2D" type="Sprite2D" parent="UI/ParallaxBackground"]
+scale = Vector2(4.23162, 4.0375)
+texture = ExtResource("2_noc7e")
+centered = false
 
-[node name="EnemySpawner" parent="." instance=ExtResource("3_hbv38")]
+[node name="ParallaxLayer" type="ParallaxLayer" parent="UI/ParallaxBackground"]
+motion_scale = Vector2(0.7, 0.7)
+motion_mirroring = Vector2(1152, 0)
 
-[node name="MeteorSpawner" parent="." instance=ExtResource("8_o4ufn")]
-process_mode = 4
+[node name="Sprite2D" type="Sprite2D" parent="UI/ParallaxBackground/ParallaxLayer"]
+scale = Vector2(4.23529, 4.04375)
+texture = ExtResource("3_8lq4b")
+centered = false
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("6_dfgmv")
-volume_db = -20.0
-autoplay = true
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="UI/ParallaxBackground"]
+motion_scale = Vector2(0.6, 0.6)
+motion_mirroring = Vector2(1152, 0)
 
-[node name="BaseBorder" parent="." instance=ExtResource("8_u7nnc")]
-position = Vector2(12, 327)
-collision_layer = 31
-collision_mask = 31
+[node name="Sprite2D" type="Sprite2D" parent="UI/ParallaxBackground/ParallaxLayer2"]
+scale = Vector2(4.23529, 4.04375)
+texture = ExtResource("4_wuqas")
+centered = false
 
-[node name="ExperienceManager" parent="." instance=ExtResource("9_6ylxv")]
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="UI/ParallaxBackground"]
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(1152, 0)
 
-[connection signal="took_damage" from="Player" to="." method="_on_player_took_damage"]
+[node name="Sprite2D" type="Sprite2D" parent="UI/ParallaxBackground/ParallaxLayer3"]
+position = Vector2(428, 336)
+scale = Vector2(4.29412, 1.98261)
+texture = ExtResource("5_4065t")
+centered = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="UI/ParallaxBackground/ParallaxLayer3"]
+position = Vector2(764, 60)
+rotation = 1.07687
+scale = Vector2(1.67541, 1.06407)
+texture = ExtResource("5_4065t")
+centered = false
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="UI/ParallaxBackground"]
+motion_scale = Vector2(0.4, 0.4)
+motion_mirroring = Vector2(1152, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/ParallaxBackground/ParallaxLayer4"]
+self_modulate = Color(1, 1, 1, 0.403922)
+position = Vector2(40, 241)
+scale = Vector2(2.92045, 2.81609)
+texture = ExtResource("6_qucxm")
+centered = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="UI/ParallaxBackground/ParallaxLayer4"]
+self_modulate = Color(0.831373, 0.0901961, 1, 1)
+position = Vector2(267, 499)
+rotation = -5.50477
+scale = Vector2(1.38574, 1.37931)
+texture = ExtResource("6_qucxm")
+centered = false
+
+[node name="Sprite2D3" type="Sprite2D" parent="UI/ParallaxBackground/ParallaxLayer4"]
+self_modulate = Color(1, 0.411765, 0.227451, 1)
+position = Vector2(708, 332)
+rotation = 0.380482
+scale = Vector2(2.92045, 2.81609)
+texture = ExtResource("6_qucxm")
+centered = false
+
+[node name="ExperienceManager" parent="." instance=ExtResource("7_ydoy4")]
+
+[node name="UpgradeManager" parent="." node_paths=PackedStringArray("experience_manager") instance=ExtResource("8_bt12y")]
+upgrade_pool = Array[Resource("res://resources/ability_upgrade.gd")]([])
+experience_manager = NodePath("../ExperienceManager")
+
+[node name="Player" parent="." instance=ExtResource("9_6mspg")]
+position = Vector2(183, 347)
+
+[node name="EnemySpawner" parent="." instance=ExtResource("10_x68el")]
+
 [connection signal="enemy_spawned" from="EnemySpawner" to="." method="_on_enemy_spawner_enemy_spawned"]
-[connection signal="area_entered" from="BaseBorder" to="." method="_on_base_border_area_entered"]

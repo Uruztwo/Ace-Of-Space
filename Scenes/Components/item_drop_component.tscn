@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://l6h063hvcsim"]
+
+[ext_resource type="Script" path="res://Scenes/Components/item_drop_component.gd" id="1_jdp8g"]
+[ext_resource type="PackedScene" uid="uid://b1kr4ddrpauq8" path="res://Scenes/blue_experience_item.tscn" id="2_e063k"]
+
+[node name="ItemDropComponent" type="Node"]
+script = ExtResource("1_jdp8g")
+blue_xp_scene = ExtResource("2_e063k")

@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://dai5yw3ymnk3b"]
-
-[ext_resource type="Script" path="res://Scripts/item_drop_manager.gd" id="1_ajiq6"]
-[ext_resource type="PackedScene" uid="uid://dgnjrad27mt6w" path="res://Scenes/blue_experience.tscn" id="2_bydny"]
-
-[node name="ItemDropManager" type="Node"]
-script = ExtResource("1_ajiq6")
-blue_experience = ExtResource("2_bydny")
