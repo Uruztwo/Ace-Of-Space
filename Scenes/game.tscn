@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bb5c1877tgm6v"]
+[gd_scene load_steps=13 format=3 uid="uid://bb5c1877tgm6v"]
 
 [ext_resource type="Script" path="res://Scripts/ParallaxBackground.gd" id="1_6c078"]
 [ext_resource type="Script" path="res://Scripts/game.gd" id="1_cnq33"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dvgk4ojubb2b2" path="res://Assets/Background/parallax-space-ring-planet.png" id="5_4065t"]
 [ext_resource type="Texture2D" uid="uid://bs0fusnb3rhdl" path="res://Assets/Background/parallax-space-big-planet.png" id="6_qucxm"]
 [ext_resource type="PackedScene" uid="uid://clqwbqa74pkxy" path="res://Scenes/experience_manager.tscn" id="7_ydoy4"]
+[ext_resource type="PackedScene" uid="uid://xjmse3xtcid6" path="res://Scenes/hud.tscn" id="8_7x37i"]
 [ext_resource type="PackedScene" uid="uid://bqqy4wivd6wgq" path="res://Scenes/upgrade_manager.tscn" id="8_bt12y"]
 [ext_resource type="PackedScene" uid="uid://ce30kjmfybl4w" path="res://Scenes/player.tscn" id="9_6mspg"]
 [ext_resource type="PackedScene" uid="uid://c6qln48vfi4px" path="res://Scenes/enemy_spawner.tscn" id="10_x68el"]
@@ -86,6 +87,8 @@ rotation = 0.380482
 scale = Vector2(2.92045, 2.81609)
 texture = ExtResource("6_qucxm")
 centered = false
+
+[node name="HUD" parent="UI" instance=ExtResource("8_7x37i")]
 
 [node name="ExperienceManager" parent="." instance=ExtResource("7_ydoy4")]
 

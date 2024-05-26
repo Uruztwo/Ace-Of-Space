@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 var speed = 450
 signal took_damage
@@ -16,6 +17,7 @@ signal took_damage
 #@onready var cannon = $Cannon
 #@onready var destroyed = $Destroyed
 @onready var sprite = $Sprite2D
+@onready var health_component = $HealthComponent
 
 @export var scale_amount = Vector2(1.2, 1.2)
 @export var scale_duration = 0.4
@@ -79,3 +81,7 @@ func fire_rockets():
 	var new_rocket = Rocket.instantiate()
 	cannon_container.add_child(new_rocket)
 	new_rocket.global_position = cannon_muzzle.global_position
+
+
+func _on_hurt_box_body_entered(body):
+	health_component.damage(1)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://xjmse3xtcid6"]
+[gd_scene load_steps=7 format=3 uid="uid://xjmse3xtcid6"]
 
 [ext_resource type="FontFile" uid="uid://bapqa58e83b6" path="res://Assets/UI/kenvector_future.ttf" id="1_iykwj"]
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_l30nv"]
@@ -6,6 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://6jpqr60v1223" path="res://Assets/UI/green_button05.png" id="3_3stxh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0gw4f"]
+font = ExtResource("1_iykwj")
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_4tl06"]
 font = ExtResource("1_iykwj")
 font_size = 40
 
@@ -24,7 +28,7 @@ offset_left = 15.0
 offset_top = 6.0
 offset_right = 378.0
 offset_bottom = 64.0
-text = "Score : 99999"
+text = "Score : 9999"
 label_settings = SubResource("LabelSettings_0gw4f")
 
 [node name="HPbar" type="TextureProgressBar" parent="."]
@@ -33,5 +37,23 @@ offset_left = 12.0
 offset_top = 62.0
 offset_right = 234.0
 offset_bottom = 102.0
+max_value = 1.0
+step = 0.05
 texture_under = ExtResource("2_8yqe6")
 texture_progress = ExtResource("3_3stxh")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 507.0
+offset_top = 10.0
+offset_right = 636.0
+offset_bottom = 53.0
+
+[node name="TimeLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_4tl06")
+
+[node name="GameTime" type="Timer" parent="MarginContainer"]
+wait_time = 60.0
+one_shot = true
+autostart = true

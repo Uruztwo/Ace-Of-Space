@@ -4,7 +4,7 @@ extends CharacterBody2D
 
 @onready var sprite = $Sprite2D
 @onready var animated_sprite_2d = $AnimatedSprite2D
-@export var HP = 2
+#@export var HP = 2
 @export var modulated_colour = Color.WHITE
 @export var original_speed = 220
 #var dropped_item = preload("res://Scenes/blue_experience.tscn")
@@ -17,7 +17,17 @@ func _ready():
 
 func _physics_process(delta):
 	global_position.x -= speed * delta	
+	
 
 
 func _on_area_2d_area_entered(area):
-	health_component.damage(100)
+	health_component.damage(1)
+
+
+func _on_area_2d_body_entered(body):
+	#take_damage(1)
+	health_component.damage(2)
+	#queue_free()
+#
+#func take_damage(amount):
+	#health_component.Max_Health -= amount
