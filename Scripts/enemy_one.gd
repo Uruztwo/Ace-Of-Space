@@ -1,15 +1,12 @@
 extends CharacterBody2D
 
 @onready var health_component = $HealthComponent
-
 @onready var sprite = $Sprite2D
 @onready var animated_sprite_2d = $AnimatedSprite2D
-#@export var HP = 2
 @export var modulated_colour = Color.WHITE
 @export var original_speed = 220
-#var dropped_item = preload("res://Scenes/blue_experience.tscn")
 var speed
-#@onready var audio_player_2d = $AudioStreamPlayer2D
+
 
 
 func _ready():
@@ -22,12 +19,15 @@ func _physics_process(delta):
 
 func _on_area_2d_area_entered(area):
 	health_component.damage(1)
+	sprite.modulate = Color.RED
+	speed = 0
+	await get_tree().create_timer(0.1).timeout
+	speed = original_speed
+	sprite.modulate = Color.WHITE
 
 
 func _on_area_2d_body_entered(body):
-	#take_damage(1)
 	health_component.damage(2)
-	#queue_free()
-#
-#func take_damage(amount):
-	#health_component.Max_Health -= amount
+
+
+

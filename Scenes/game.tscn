@@ -88,7 +88,9 @@ scale = Vector2(2.92045, 2.81609)
 texture = ExtResource("6_qucxm")
 centered = false
 
-[node name="HUD" parent="UI" instance=ExtResource("8_7x37i")]
+[node name="HUD" parent="UI" node_paths=PackedStringArray("player", "experience_manager") instance=ExtResource("8_7x37i")]
+player = NodePath("../../Player")
+experience_manager = NodePath("../../ExperienceManager")
 
 [node name="ExperienceManager" parent="." instance=ExtResource("7_ydoy4")]
 
@@ -98,6 +100,8 @@ experience_manager = NodePath("../ExperienceManager")
 
 [node name="Player" parent="." instance=ExtResource("9_6mspg")]
 position = Vector2(183, 347)
+scale_amount = Vector2(1.1, 1.1)
+scale_duration = 0.3
 
 [node name="EnemySpawner" parent="." instance=ExtResource("10_x68el")]
 
