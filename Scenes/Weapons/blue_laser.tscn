@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3ck1273cuv4p"]
+[gd_scene load_steps=8 format=3 uid="uid://d3ck1273cuv4p"]
 
 [ext_resource type="Texture2D" uid="uid://b1oc71ulmi4ep" path="res://Assets/Laser Sprites/01.png" id="1_aevxc"]
 [ext_resource type="Script" path="res://Scripts/blue_laser.gd" id="1_lohvx"]
@@ -7,10 +7,82 @@
 
 [sub_resource type="Animation" id="Animation_itr7k"]
 resource_name = "just_shot"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 2.36), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qliyu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 2.36)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vxojk"]
+resource_name = "on_contact"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.435294, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.359999, 2.92)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2xc55"]
 _data = {
-"just_shot": SubResource("Animation_itr7k")
+"RESET": SubResource("Animation_qliyu"),
+"just_shot": SubResource("Animation_itr7k"),
+"on_contact": SubResource("Animation_vxojk")
 }
 
 [node name="BlueLaser" type="Area2D"]
@@ -19,6 +91,7 @@ collision_mask = 4
 script = ExtResource("1_lohvx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1, 2.36)
 texture = ExtResource("1_aevxc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -29,6 +102,7 @@ shape = SubResource("CapsuleShape2D_leu86")
 libraries = {
 "": SubResource("AnimationLibrary_2xc55")
 }
+autoplay = "just_shot"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 

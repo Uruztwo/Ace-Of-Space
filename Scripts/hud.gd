@@ -1,5 +1,6 @@
 extends Control
 
+@onready var hplabel = $HPlabel
 @export var player :Player
 @export var experience_manager : Node
 @onready var gametimer = $MarginContainer/GameTime
@@ -24,15 +25,8 @@ func get_time_elapsed():
 func format_seconds_to_string(seconds: float):
 	var minutes = floor(seconds / 60)
 	var remaining_seconds = seconds - (minutes * 60)
-	return str(minutes) + ":" + str(floor(remaining_seconds))
-#func _on_health_changed(new_health):
-	#h_pbar.value = new_health
-
+	return str(minutes) + ":" + str(floor(remaining_seconds))	
 func on_experience_updated(current_experience: float, target_experience: float):
 	var percent = current_experience / target_experience
 	progress_bar.value = percent
 
-#func get_health_percent():
-	#if GameEvents.max_player_hp <=0:
-		#return 0
-	#hp_percent = min(GameEvents.current_player_hp / GameEvents.max_player_hp, 1)

@@ -3,25 +3,27 @@ class_name Player
 
 var speed = 450
 signal took_damage
-
+var base_fire_rate
 @export var Rocket: PackedScene
 @onready var screen_size = get_viewport_rect().size
 @export var Cannon : PackedScene
 @export var Basic_Lasers_Scene : PackedScene
 @onready var laser_container = $LaserContainer
-@onready var left_muzzle = $LeftMuzzle
 @onready var right_muzzle = $RightMuzzle
 @onready var cannon_muzzle = $CannonMuzzle
+@onready var left_muzzle = $LeftMuzzle
 @onready var cannon_container = $CannonContainer
-#@onready var lasers = $Lasers
-#@onready var cannon = $Cannon
-#@onready var destroyed = $Destroyed
 @onready var sprite = $Sprite2D
 @onready var health_component = $HealthComponent
-
 @export var scale_amount = Vector2(1.2, 1.2)
 @export var scale_duration = 0.4
+@onready var fire_rate_timer = $AbilityController/FireRateTimer
 
+
+func _ready():
+	base_fire_rate = fire_rate_timer.wait_time
+	GameEvents.ability_upgrade_added.connect(on_ability_upgrade_added)
+	print(fire_rate_timer.wait_time)
 func _physics_process(_delta):
 	
 	if Input.is_action_just_pressed("Fire_Lasers"):
@@ -55,21 +57,20 @@ func fire_lasers():
 	new_laser_left_muzzle.global_position = left_muzzle.global_position
 	new_laser_right_muzzle.global_position = right_muzzle.global_position
 	shooting_anim()
-	#lasers.play()
+	
 
 func take_damage():
 	emit_signal("took_damage")
 
 func die():
-	#destroyed.play()
-	#await get_tree().create_timer(0.4).timeout
+
 	queue_free()
 	
 func fire_cannon():
 	var new_cannon_muzzle = Cannon.instantiate()
 	cannon_container.add_child(new_cannon_muzzle)
 	new_cannon_muzzle.global_position = cannon_muzzle.global_position
-	#cannon.play()
+	
 
 func shooting_anim():
 	var tween = create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
@@ -83,5 +84,15 @@ func fire_rockets():
 	new_rocket.global_position = cannon_muzzle.global_position
 
 
-func _on_hurt_box_body_entered(body):
+func _on_hurt_box_body_entered(_body):
 	health_component.damage(1)
+
+func on_ability_upgrade_added(upgrade: AbilityUpgrade, current_upgrades: Dictionary):
+	if upgrade.id != "fire_rate":
+		return
+	var percent_reduction = current_upgrades["fire_rate"]["quantity"] * .1	
+	fire_rate_timer.wait_time = base_fire_rate * ( 1 - percent_reduction)
+	fire_rate_timer.start()
+	
+	print(fire_rate_timer.wait_time)
+	

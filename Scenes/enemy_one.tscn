@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://brkpjicqklf86"]
+[gd_scene load_steps=15 format=3 uid="uid://brkpjicqklf86"]
 
 [ext_resource type="Texture2D" uid="uid://u2osxuhhuwhm" path="res://Assets/SpaceShipParts/Example/16.png" id="1_6mqsw"]
 [ext_resource type="Script" path="res://Scripts/enemy_one.gd" id="1_nyfka"]
@@ -52,12 +52,15 @@ animations = [{
 "texture": SubResource("AtlasTexture_b25tq")
 }],
 "loop": true,
-"name": &"default",
-"speed": 5.0
+"name": &"explosion",
+"speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ty31i"]
+size = Vector2(20, 71.1111)
+
 [node name="EnemyOne" type="CharacterBody2D"]
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.45, 0.45)
 collision_layer = 4
 collision_mask = 10
 script = ExtResource("1_nyfka")
@@ -85,8 +88,10 @@ shape = SubResource("CapsuleShape2D_dbe1j")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 visible = false
-scale = Vector2(4, 4)
+scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_uj700")
+animation = &"explosion"
+frame_progress = 0.130473
 
 [node name="ItemDropComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_d1h6a")]
 health_component = NodePath("../HealthComponent")
@@ -94,5 +99,15 @@ health_component = NodePath("../HealthComponent")
 [node name="HealthComponent" parent="." instance=ExtResource("4_mw1sc")]
 Max_Health = 2.0
 
+[node name="BaseEntry" type="Area2D" parent="."]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BaseEntry"]
+position = Vector2(64.4445, 0)
+shape = SubResource("RectangleShape2D_ty31i")
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
+[connection signal="area_entered" from="BaseEntry" to="." method="_on_base_entry_area_entered"]

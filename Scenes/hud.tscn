@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://xjmse3xtcid6"]
+[gd_scene load_steps=9 format=3 uid="uid://xjmse3xtcid6"]
 
 [ext_resource type="FontFile" uid="uid://bapqa58e83b6" path="res://Assets/UI/kenvector_future.ttf" id="1_iykwj"]
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_l30nv"]
@@ -9,6 +9,11 @@
 [sub_resource type="LabelSettings" id="LabelSettings_0gw4f"]
 font = ExtResource("1_iykwj")
 font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_1ofwl"]
+font = ExtResource("1_iykwj")
+font_size = 20
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_4tl06"]
 font = ExtResource("1_iykwj")
@@ -44,6 +49,15 @@ step = 0.05
 texture_under = ExtResource("2_8yqe6")
 texture_progress = ExtResource("3_3stxh")
 texture_progress_offset = Vector2(0, -4)
+
+[node name="HPlabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 68.0
+offset_right = 142.0
+offset_bottom = 96.0
+text = "10"
+label_settings = SubResource("LabelSettings_1ofwl")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0

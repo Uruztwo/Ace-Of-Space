@@ -17,7 +17,7 @@ func _physics_process(delta):
 	
 
 
-func _on_area_2d_area_entered(area):
+func _on_area_2d_area_entered(_area):
 	health_component.damage(1)
 	sprite.modulate = Color.RED
 	speed = 0
@@ -26,8 +26,16 @@ func _on_area_2d_area_entered(area):
 	sprite.modulate = Color.WHITE
 
 
-func _on_area_2d_body_entered(body):
+func _on_area_2d_body_entered(_body):
 	health_component.damage(2)
 
 
+func _on_health_component_died():
+	#sprite.visible = false
+	#animated_sprite_2d.visible = true
+	#animated_sprite_2d.play("explosion")
+	pass
 
+
+func _on_base_entry_area_entered(area):
+	queue_free()

@@ -16,11 +16,15 @@ radius = 80.5308
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(567, 353)
 rotation = 1.5708
-scale = Vector2(0.65, 0.65)
+scale = Vector2(0.45, 0.45)
 script = ExtResource("1_4ued4")
 Rocket = ExtResource("2_gt328")
 Cannon = ExtResource("3_wa3fb")
 Basic_Lasers_Scene = ExtResource("4_rv4k0")
+
+[node name="HealthComponent" parent="." instance=ExtResource("6_ha6u2")]
+Max_Health = 3.0
+update_game_events = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_m1qp7")
@@ -29,28 +33,11 @@ texture = ExtResource("1_m1qp7")
 position = Vector2(-1, -11.5)
 shape = SubResource("RectangleShape2D_nhcac")
 
-[node name="LaserContainer" type="Node" parent="."]
-
-[node name="CannonContainer" type="Node" parent="."]
-
-[node name="LeftMuzzle" type="Marker2D" parent="."]
-position = Vector2(-37, -70)
-
-[node name="RightMuzzle" type="Marker2D" parent="."]
-position = Vector2(37, -70)
-
-[node name="CannonMuzzle" type="Marker2D" parent="."]
-position = Vector2(-0.333405, -85.9999)
-
 [node name="PickUpArea" type="Area2D" parent="."]
 collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpArea"]
 shape = SubResource("CircleShape2D_xbbpi")
-
-[node name="HealthComponent" parent="." instance=ExtResource("6_ha6u2")]
-Max_Health = 3.0
-update_game_events = true
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 2
@@ -60,4 +47,24 @@ collision_mask = 4
 position = Vector2(-0.999939, -11.4999)
 shape = SubResource("RectangleShape2D_nhcac")
 
+[node name="AbilityController" type="Node" parent="."]
+
+[node name="FireRateTimer" type="Timer" parent="AbilityController"]
+wait_time = 0.75
+autostart = true
+
+[node name="CannonContainer" type="Node" parent="."]
+
+[node name="LaserContainer" type="Node" parent="."]
+
+[node name="RightMuzzle" type="Marker2D" parent="."]
+position = Vector2(37, -85)
+
+[node name="LeftMuzzle" type="Marker2D" parent="."]
+position = Vector2(-37, -85)
+
+[node name="CannonMuzzle" type="Marker2D" parent="."]
+position = Vector2(0, -90)
+
 [connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
+[connection signal="timeout" from="AbilityController/FireRateTimer" to="." method="fire_lasers"]
