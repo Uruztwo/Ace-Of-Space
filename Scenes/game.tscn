@@ -29,6 +29,7 @@ size = Vector2(14, 646)
 script = ExtResource("1_cnq33")
 
 [node name="UI" type="CanvasLayer" parent="."]
+process_mode = 3
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="UI"]
 script = ExtResource("1_6c078")

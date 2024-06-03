@@ -23,8 +23,7 @@ Cannon = ExtResource("3_wa3fb")
 Basic_Lasers_Scene = ExtResource("4_rv4k0")
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_ha6u2")]
-Max_Health = 3.0
-update_game_events = true
+Max_Health = 5.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_m1qp7")

@@ -63,7 +63,6 @@ func take_damage():
 	emit_signal("took_damage")
 
 func die():
-
 	queue_free()
 	
 func fire_cannon():

@@ -71,7 +71,7 @@ layout_mode = 2
 label_settings = SubResource("LabelSettings_4tl06")
 
 [node name="GameTime" type="Timer" parent="MarginContainer"]
-wait_time = 60.0
+wait_time = 250.0
 one_shot = true
 autostart = true
 
